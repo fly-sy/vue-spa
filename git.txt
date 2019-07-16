@@ -1,0 +1,23 @@
+git 
+
+git init 初始化git本地仓库
+
+git status 查看监听的状态  (可选)
+
+git add .  全部添加到可操作的状态 （当前状态应该为绿色）
+
+git commit -m 'first'  把监听的文件添加到本地仓库       
+
+git log    查看修改日志   (可选)
+
+git remote add origin http  http是你的运程仓库地址  需要你在 github 或者 码云上创建    
+
+git push -u origin master  提交到主分支上   
+
+git checkout -b 分支的名称  创建并切换到新分支   
+
+git branch     查看分支  
+
+git checkout 分支名称   切换分支  
+
+git push -u origin  分支名称
