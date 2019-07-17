@@ -18,7 +18,7 @@
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="isLogin">登录</el-button>
           <el-button type="info" @click="resetLogin">重置</el-button>
         </el-form-item>
       </el-form>
@@ -29,18 +29,12 @@
 export default {
   data: () => ({
     login: {
-      username: "admin",
-      password: "123456"
+      name: 'admin',
+      password: '123456'
     },
     loginRules: {
-      username: [
-        { required: true, message: "请输入用户名", trigger: "blur" },
-        { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-      ],
-      password: [
-        { required: true, message: "请输入密码", trigger: "blur" },
-        { min: 6, max: 15, message: "长度在 3 到 5 个字符", trigger: "blur" }
-      ]
+      username: [{ required: true, message: '请输入用户名', trigger: 'blur' }, { min: 3, max: 18, message: '长度在 3 到 18 个字符', trigger: 'blur' }],
+      password: [{ required: true, message: '请输入密码', trigger: 'blur' }, { min: 6, max: 15, message: '长度在 3 到 5 个字符', trigger: 'blur' }]
     }
   }),
   methods: {
@@ -48,11 +42,28 @@ export default {
      * 重置登录表单
      */
     resetLogin() {
-      this.$refs.loginRef.resetFields();
-      this.login.username = this.login.password = "";
+      this.$refs.loginRef.resetFields()
+      this.login.username = this.login.password = ''
+    },
+
+    /**
+     * 登录
+     */
+    isLogin() {
+      this.$refs.loginRef.validate(async valid => {
+        if (!valid) return
+        const {
+          data: { data, meta } // 解构出 data 中的 data 和 meta 属性
+        } = await this.$http.post('login', this.login)
+        if (meta.status !== 200) return this.$message.success('登录失败!')
+        this.$message.success('登录成功!')
+        // 把 token保存到本地存储中
+        sessionStorage.setItem('token', data.token)
+        this.$router.push('/home')
+      })
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .login {

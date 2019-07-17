@@ -4,12 +4,13 @@ import Router from 'vue-router'
 
 // 3. 引入定义好的 .vue 类型的组件
 import Login from './views/login'
+import Home from './views/home'
 
 // 2. 注册路由中间件
 Vue.use(Router)
 
 // 4. 实例化路由对象
-export default new Router({
+const router = new Router({
   // 5. 定义路由规则
   routes: [
     {
@@ -19,6 +20,10 @@ export default new Router({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/home',
+      component: Home
     }
     // {
     //   path: '/',
@@ -35,3 +40,20 @@ export default new Router({
     // }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  /**
+   * 1. 登录不拦截
+   * 2. 非登录颜值 token 页面拦截
+   *  2.1  有token 放行  next 
+   *  2.2  没有token 强制跳转到 登录  
+   */
+
+  if (to.path === '/login') return next();
+  const token = sessionStorage.getItem('token')
+  if (!token) return next('/login')
+  next();
+})
+
+
+export default router
