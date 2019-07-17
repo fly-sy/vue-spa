@@ -12,7 +12,6 @@ Vue
   .use(Input)
 
 
-
 Vue.prototype.$message = Message
 
 
