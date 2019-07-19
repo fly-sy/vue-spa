@@ -3,8 +3,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 3. 引入定义好的 .vue 类型的组件
-import Login from './views/login'
-import Home from './views/home'
+import Login from '../views/login'
+import Home from '../views/home'
+import WelCome from '../views/home/welcome'
+import Users from '../views/home/users'
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -15,7 +17,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/home'
     },
     {
       path: '/login',
@@ -23,7 +25,18 @@ const router = new Router({
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      redirect: '/welcome',
+      children: [
+        {
+          path: '/welcome',
+          component: WelCome
+        },
+        {
+          path: '/users',
+          component: Users
+        }
+      ]
     }
     // {
     //   path: '/',
@@ -41,6 +54,7 @@ const router = new Router({
   ]
 })
 
+// 路由全局守卫
 router.beforeEach((to, from, next) => {
   /**
    * 1. 登录不拦截
