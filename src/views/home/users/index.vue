@@ -99,6 +99,27 @@
         <el-button type="primary" @click="addUser">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!-- 编辑用户 -->
+    <el-dialog title="提示" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
+      <!-- 内容主体区域 -->
+      <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
+        <el-form-item label="用户名">
+          <el-input v-model="editForm.username" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="editForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="手机" prop="mobile">
+          <el-input v-model="editForm.mobile" maxlength="11"></el-input>
+        </el-form-item>
+      </el-form>
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editUser">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -129,12 +150,13 @@ export default {
     }
     return {
       addDialogVisible: false,
+      editDialogVisible: false,
       users: [],
       total: 0,
       queryInfo: {
         query: '',
         pagenum: 1,
-        pagesize: 4
+        pagesize: 3
       },
       // 添加用户的表单数据
       addForm: {
@@ -143,6 +165,7 @@ export default {
         email: '',
         mobile: ''
       },
+      editForm: {},
       // 添加表单的验证规则对象
       addFormRules: {
         username: [
@@ -177,6 +200,11 @@ export default {
             trigger: 'blur'
           }
         ]
+      },
+      // 修改表单的验证规则对象
+      editFormRules: {
+        email: [{ required: true, message: '请输入用户邮箱', trigger: 'blur' }, { validator: checkEmail, trigger: 'blur' }],
+        mobile: [{ required: true, message: '请输入用户手机', trigger: 'blur' }, { validator: checkMobile, trigger: 'blur' }]
       }
     }
   },
@@ -190,7 +218,6 @@ export default {
         data: { data, meta }
       } = await this.$http.get('users', { params: this.queryInfo })
       if (meta.status !== 200) return this.$message.error(meta.msg)
-      console.log(data)
       this.users = data.users
       this.total = data.total
     },
@@ -218,7 +245,7 @@ export default {
       }
       this.$message.success(meta.msg)
     },
-    // 关闭对话框并重置表单
+    // 关闭添加对话框并重置表单
     addDialogClosed() {
       this.$refs.addFormRef.resetFields()
     },
@@ -230,12 +257,64 @@ export default {
           data: { data, meta }
         } = await this.$http.post('users', this.addForm)
         if (meta.status !== 201) return this.$message.error(meta.msg)
+        // 添加成功提示
         this.$message.success(meta.msg)
         // 关闭对话框
         this.addDialogVisible = false
         // 刷新数据
         this.getUsers()
       })
+    },
+    // 显示编辑对话框
+    async showEditDialog(id) {
+      this.editDialogVisible = true
+      const {
+        data: { data, meta }
+      } = await this.$http.get('users/' + id)
+      if (meta.status !== 200) return this.$message.error(meta.msg)
+      this.editForm = data
+    },
+    // 关闭编辑对话框并重置表单
+    editDialogClosed() {
+      this.$refs.editFormRef.resetFields()
+    },
+    // 编辑用户
+    async editUser() {
+      this.$refs.editFormRef.validate(async valid => {
+        if (!valid) return
+        const {
+          data: { data, meta }
+        } = await this.$http.put('users/' + this.editForm.id, this.editForm)
+        if (meta.status !== 200) return this.$message.error(meta.msg)
+        // 添加成功提示
+        this.$message.success(meta.msg)
+        // 关闭对话框
+        this.editDialogVisible = false
+        // 刷新数据
+        this.getUsers()
+      })
+    },
+    // 通过id删除用户
+    async removeUserById(id) {
+      
+      try {
+        await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+
+        const {
+          data: { data, meta }
+        } = await this.$http.delete('users/' + id)
+        if (meta.status !== 200) return this.$message.error(meta.msg)
+        // 删除成功提示
+        this.$message.success(meta.msg)
+        // 刷新数据
+        this.getUsers()
+      } catch (err) {
+        this.$message.info('已经撤销删除')
+      }
     }
   }
 }

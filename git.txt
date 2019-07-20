@@ -21,3 +21,7 @@ git branch     查看分支
 git checkout 分支名称   切换分支  
 
 git push -u origin  分支名称
+
+git reset --hard commit_id   代码回退  
+
+git merge 分支名称      要确保你是在master 分支上操作

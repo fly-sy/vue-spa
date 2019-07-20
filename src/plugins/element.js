@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {
+  MessageBox,
   Dialog,
   Pagination,
   Tooltip,
@@ -50,5 +51,7 @@ Vue
 
 
 Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
+
 
 
