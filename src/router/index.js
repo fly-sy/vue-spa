@@ -8,6 +8,7 @@ import Home from '../views/home'
 import WelCome from '../views/home/welcome'
 import Users from '../views/home/users/index'
 import Rights from '../views/home/power/rights'
+import Roles from '../views/home/power/roles'
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -40,6 +41,10 @@ const router = new Router({
         {
           path: '/rights',
           component: Rights
+        },
+        {
+          path: '/roles',
+          component: Roles
         }
       ]
     }

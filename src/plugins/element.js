@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import {
+  Select,
+  Option,
+  Tree,
+  Tag,
   MessageBox,
   Dialog,
   Pagination,
@@ -23,10 +27,13 @@ import {
   Header,
   Aside,
   Main
-
 } from 'element-ui'
 
 Vue
+  .use(Select)
+  .use(Option)
+  .use(Tree)
+  .use(Tag)
   .use(Dialog)
   .use(Pagination)
   .use(Tooltip)
@@ -48,7 +55,6 @@ Vue
   .use(Header)
   .use(Aside)
   .use(Main)
-
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
