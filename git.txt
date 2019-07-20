@@ -24,4 +24,24 @@ git push -u origin  分支名称
 
 git reset --hard commit_id   代码回退  
 
+合并
+
 git merge 分支名称      要确保你是在master 分支上操作
+
+删除
+
+git branch -d 分支名称 删除本地分支
+
+git branch -D 分支名称 强制删除本地分支
+
+git push origin --delete 分支名称 删除远程分支
+
+重命名
+
+git branch -m 要改的本地分支名 修改后的分支名(修改本地分支)
+
+git push origin :远程修改前的分支名（删除远程分支）
+
+git push origin 修改后的分支名:修改后的分支名（push 到远程分支）
+
+git branch --set-upstream  修改后的分支名 origin/修改后的分支名（绑定远程分支）

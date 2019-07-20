@@ -6,7 +6,8 @@ import Router from 'vue-router'
 import Login from '../views/login'
 import Home from '../views/home'
 import WelCome from '../views/home/welcome'
-import Users from '../views/home/users'
+import Users from '../views/home/users/index'
+import Rights from '../views/home/power/rights'
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -35,6 +36,10 @@ const router = new Router({
         {
           path: '/users',
           component: Users
+        },
+        {
+          path: '/rights',
+          component: Rights
         }
       ]
     }
