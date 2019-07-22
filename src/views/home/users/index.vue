@@ -19,18 +19,22 @@
       </el-row>
       <!-- 用户列表区域 -->
       <el-table :data="users" border stripe>
-        <el-table-column type="index"></el-table-column>
-        <el-table-column label="姓名" prop="username"></el-table-column>
-        <el-table-column label="邮箱" prop="email"></el-table-column>
-        <el-table-column label="电话" prop="mobile"></el-table-column>
-        <el-table-column label="角色" prop="role_name"></el-table-column>
-        <el-table-column label="状态">
+        <el-table-column type="index" align="center"></el-table-column>
+        <el-table-column label="姓名" prop="username" align="center"></el-table-column>
+        <el-table-column label="邮箱" prop="email" align="center"></el-table-column>
+        <el-table-column label="电话" prop="mobile" align="center"></el-table-column>
+        <el-table-column label="角色" prop="role_name" align="center"></el-table-column>
+        <el-table-column label="状态" align="center">
           <!-- 使用作用域插槽的方式传递数据给父组件，然后可以通过父组件控制子组件的状态 -->
           <template slot-scope="scope">
-            <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)"></el-switch>
+            <el-switch
+              v-model="scope.row.mg_state"
+              @change="userStateChanged(scope.row)"
+              :disabled="scope.row.id == 500"
+            ></el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="173px">
+        <el-table-column label="操作" width="173px" align="center">
           <!-- 为什么这里使用作用域插槽? 子组件只做布局上的渲染，所有的数据的操作都由父组件控制-->
           <template slot-scope="scope">
             <!-- 修改按钮 -->
@@ -38,6 +42,7 @@
               type="primary"
               icon="el-icon-edit"
               size="mini"
+              :disabled="scope.row.id == 500"
               @click="showEditDialog(scope.row.id)"
             ></el-button>
             <!-- 删除按钮 -->
@@ -46,6 +51,7 @@
               icon="el-icon-delete"
               size="mini"
               @click="removeUserById(scope.row.id)"
+              :disabled="scope.row.id == 500"
             ></el-button>
             <!-- 分配角色按钮 -->
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
@@ -54,6 +60,7 @@
                 icon="el-icon-setting"
                 size="mini"
                 @click="setRole(scope.row)"
+                :disabled="scope.row.id == 500"
               ></el-button>
             </el-tooltip>
           </template>
@@ -122,7 +129,6 @@
     </el-dialog>
 
     <!-- 分配权限 -->
-    <!-- 分配角色的对话框 -->
     <el-dialog
       title="分配角色"
       :visible.sync="setRoleDialogVisible"
@@ -246,6 +252,7 @@ export default {
         data: { data, meta }
       } = await this.$http.get('users', { params: this.queryInfo })
       if (meta.status !== 200) return this.$message.error(meta.msg)
+      console.log(data)
       this.users = data.users
       this.total = data.total
     },

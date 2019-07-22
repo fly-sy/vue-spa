@@ -18,7 +18,7 @@
       <!-- 角色列表区域 -->
       <el-table :data="roles" border stripe>
         <!-- 展开列 -->
-        <el-table-column type="expand">
+        <el-table-column label="缩放" type="expand" width="50px">
           <template slot-scope="scope">
             <el-row
               v-for="(item1,index) in scope.row.children"
@@ -58,10 +58,10 @@
           </template>
         </el-table-column>
         <!-- 索引列 -->
-        <el-table-column type="index"></el-table-column>
-        <el-table-column label="角色名称" prop="roleName"></el-table-column>
-        <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
-        <el-table-column label="操作" width="300px">
+        <el-table-column type="index" align="center"></el-table-column>
+        <el-table-column label="角色名称" prop="roleName" align="center"></el-table-column>
+        <el-table-column label="角色描述" prop="roleDesc" align="center"></el-table-column>
+        <el-table-column label="操作" width="300px" align="center">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" icon="el-icon-edit">编辑</el-button>
             <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>

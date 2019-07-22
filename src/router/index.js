@@ -9,6 +9,7 @@ import WelCome from '../views/home/welcome'
 import Users from '../views/home/users/index'
 import Rights from '../views/home/power/rights'
 import Roles from '../views/home/power/roles'
+import Categories from '../views/home/goods/categories'
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -45,6 +46,10 @@ const router = new Router({
         {
           path: '/roles',
           component: Roles
+        },
+        {
+          path: '/categories',
+          component: Categories
         }
       ]
     }

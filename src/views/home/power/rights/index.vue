@@ -7,10 +7,10 @@
     </el-breadcrumb>
     <el-card>
       <el-table :data="rights" border stripe>
-        <el-table-column type="index"></el-table-column>
-        <el-table-column label="权限名称" prop="authName"></el-table-column>
-        <el-table-column label="路径" prop="path"></el-table-column>
-        <el-table-column label="权限等级">
+        <el-table-column type="index" align="center"></el-table-column>
+        <el-table-column label="权限名称" prop="authName" align="center"></el-table-column>
+        <el-table-column label="路径" prop="path" align="center"></el-table-column>
+        <el-table-column label="权限等级" align="center">
           <template slot-scope="scope">
             <el-tag v-if="scope.row.level === '0'">一级</el-tag>
             <el-tag type="success" v-else-if="scope.row.level === '1'">二级</el-tag>

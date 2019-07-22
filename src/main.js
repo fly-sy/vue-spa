@@ -13,6 +13,10 @@ import './plugins/element.js'
 // 引入axios请求
 import './api'
 
+import TreeTable from 'vue-table-with-tree-grid'
+
+Vue.component('tree-table', TreeTable)
+
 Vue.config.productionTip = false
 
 new Vue({

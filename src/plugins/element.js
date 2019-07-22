@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {
+  Cascader,
   Select,
   Option,
   Tree,
@@ -30,6 +31,7 @@ import {
 } from 'element-ui'
 
 Vue
+  .use(Cascader)
   .use(Select)
   .use(Option)
   .use(Tree)
