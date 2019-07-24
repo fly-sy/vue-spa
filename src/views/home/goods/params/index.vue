@@ -39,31 +39,29 @@
             <!-- 展开行 -->
             <el-table-column type="expand">
               <template slot-scope="scope">
-                <div v-if="scope.row.attr_vals.length > 0">
-                  <el-tag
-                    v-for="(attr_val,index) in scope.row.attr_vals"
-                    :key="index"
-                    closable
-                  >{{attr_val}}</el-tag>
-                  <!-- 输入的文本框 -->
-                  <el-input
-                    class="input-new-tag"
-                    v-if="scope.row.inputVisible"
-                    v-model="scope.row.inputValue"
-                    ref="saveTagInput"
-                    size="small"
-                    @keyup.enter.native="handleInputConfirm(scope.row)"
-                    @blur="handleInputConfirm(scope.row)"
-                  ></el-input>
-                  <!-- 添加按钮 -->
-                  <el-button
-                    v-else
-                    class="button-new-tag"
-                    size="small"
-                    @click="showInput(scope.row)"
-                  >+ New Tag</el-button>
-                </div>
-                <el-tag v-else>暂无数据</el-tag>
+                <el-tag
+                  v-for="(attr_val,index) in scope.row.attr_vals"
+                  :key="index"
+                  closable
+                  @close="handleClose(index,scope.row)"
+                >{{attr_val}}</el-tag>
+                <!-- 输入的文本框 -->
+                <el-input
+                  class="input-new-tag"
+                  v-if="scope.row.inputVisible"
+                  v-model="scope.row.inputValue"
+                  ref="saveTagInput"
+                  size="small"
+                  @keyup.enter.native="handleInputConfirm(scope.row)"
+                  @blur="handleInputConfirm(scope.row)"
+                ></el-input>
+                <el-button
+                  v-else
+                  class="button-new-tag"
+                  size="small"
+                  @click="showInput(scope.row)"
+                >+ New Tag</el-button>
+                <!-- </div> -->
               </template>
             </el-table-column>
             <!-- 索引列 -->
@@ -97,7 +95,33 @@
           <!-- 动态参数表格 -->
           <el-table :data="onlyTableData" border stripe>
             <!-- 展开行 -->
-            <el-table-column type="expand"></el-table-column>
+            <el-table-column type="expand">
+              <template slot-scope="scope">
+                <el-tag
+                  v-for="(attr_val,index) in scope.row.attr_vals"
+                  :key="index"
+                  closable
+                  @close="handleClose(index,scope.row)"
+                >{{attr_val}}</el-tag>
+                <!-- 输入的文本框 -->
+                <el-input
+                  class="input-new-tag"
+                  v-if="scope.row.inputVisible"
+                  v-model="scope.row.inputValue"
+                  ref="saveTagInput"
+                  size="small"
+                  @keyup.enter.native="handleInputConfirm(scope.row)"
+                  @blur="handleInputConfirm(scope.row)"
+                ></el-input>
+                <el-button
+                  v-else
+                  class="button-new-tag"
+                  size="small"
+                  @click="showInput(scope.row)"
+                >+ New Tag</el-button>
+                <!-- </div> -->
+              </template>
+            </el-table-column>
             <!-- 索引列 -->
             <el-table-column type="index"></el-table-column>
             <el-table-column label="参数名称" prop="attr_name"></el-table-column>
@@ -197,6 +221,8 @@ export default {
   created() {
     this.getCates()
   },
+  // 只会执行一次
+  mounted() {},
   methods: {
     // 获取级联菜单数据
     async getCates() {
@@ -217,7 +243,12 @@ export default {
     // 封装动态参数数据获取
     async getParamsData() {
       // 判断是否选中三级子菜单
-      if (this.selectedCateKeys.length !== 3) return (this.selectedCateKeys = [])
+      if (this.selectedCateKeys.length !== 3) {
+        this.selectedCateKeys = []
+        this.manyTableData = []
+        this.onlyTableData = []
+        return
+      }
       const {
         data: { data, meta }
       } = await this.$http.get(`categories/${this.cateId}/attributes`, {
@@ -303,9 +334,53 @@ export default {
         this.editDialogVisible = false
       })
     },
-    handleInputConfirm() {},
+    handleInputConfirm(row) {
+      // 没有输入任何有意思的内容
+      if (row.inputValue.trim().length === 0) {
+        row.inputValue = ''
+        row.inputVisible = false
+        return
+      }
+
+      // 如果没有return，则证明输入的内容，需要做后续处理
+      row.attr_vals.push(row.inputValue.trim())
+      row.inputValue = ''
+      row.inputVisible = false
+      // 需要发起请求，保存这次操作
+
+      this.saveAttrVals(row)
+    },
+
+    // 将对 attr_vals 的操作，保存到数据库
+    async saveAttrVals(row) {
+      // 需要发起请求，保存这次操作
+      const { data: res } = await this.$http.put(`categories/${this.cateId}/attributes/${row.attr_id}`, {
+        attr_name: row.attr_name,
+        attr_sel: row.attr_sel,
+        attr_vals: row.attr_vals.join(' ')
+      })
+
+      if (res.meta.status !== 200) {
+        return this.$message.error('修改参数项失败！')
+      }
+
+      this.$message.success('修改参数项成功！')
+    },
     showInput(row) {
       row.inputVisible = true
+      console.log(this)
+      // 让文本框自动获得焦点
+      // Vue 官方的 api  $nextTick 主要用于监听DOM的修改
+      // $nextTick 方法的作用，就是当页面上元素被重新渲染之后，才会指定回调函数中的代码
+      this.$nextTick(() => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+
+    // 删除对应的参数可选项
+    handleClose(i, row) {
+      row.attr_vals.splice(i, 1)
+      this.saveAttrVals(row)
     }
   },
   computed: {
