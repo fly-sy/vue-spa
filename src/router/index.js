@@ -10,6 +10,7 @@ import Users from '../views/home/users/index'
 import Rights from '../views/home/power/rights'
 import Roles from '../views/home/power/roles'
 import Categories from '../views/home/goods/categories'
+import Params from '../views/home/goods/params'
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -50,6 +51,10 @@ const router = new Router({
         {
           path: '/categories',
           component: Categories
+        },
+        {
+          path: '/params',
+          component: Params
         }
       ]
     }

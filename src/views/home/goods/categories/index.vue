@@ -90,16 +90,14 @@
             <!-- options 用来指定数据源 -->
             <!-- props 用来指定配置对象 -->
             <el-cascader
-              expand-trigger="hover"
+              props.expand-trigger="hover"
               :options="parentCateList"
               :props="cascaderProps"
               v-model="selectedKeys"
               @change="parentCateChanged"
               clearable
-              change-on-select
+              props.checkStrictly
             ></el-cascader>
-
-            <!-- <el-cascader expand-trigger="hover" :options="parentCateList"></el-cascader> -->
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -222,11 +220,11 @@ export default {
 
       if (meta.status !== 200) return this.$message.error('获取父级分类数据失败！')
 
-      console.log(data)
+      // console.log(data)
       this.parentCateList = data
     },
     parentCateChanged() {
-      console.log(this.selectedKeys)
+      // console.log(this.selectedKeys)
     }
   }
 }

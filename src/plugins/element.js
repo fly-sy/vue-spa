@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import {
+  Tabs,
+  TabPane,
+  Alert,
   Cascader,
   Select,
   Option,
@@ -31,6 +34,9 @@ import {
 } from 'element-ui'
 
 Vue
+  .use(Tabs)
+  .use(TabPane)
+  .use(Alert)
   .use(Cascader)
   .use(Select)
   .use(Option)
