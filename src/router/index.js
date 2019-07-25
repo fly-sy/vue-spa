@@ -11,6 +11,8 @@ import Rights from '../views/home/power/rights'
 import Roles from '../views/home/power/roles'
 import Categories from '../views/home/goods/categories'
 import Params from '../views/home/goods/params'
+import List from '../views/home/goods/list'
+import Add from '../views/home/goods/add'
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -55,6 +57,14 @@ const router = new Router({
         {
           path: '/params',
           component: Params
+        },
+        {
+          path: '/goods',
+          component: List
+        },
+        {
+          path: '/goods/add',
+          component: Add
         }
       ]
     }

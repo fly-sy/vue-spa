@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import {
+  Upload,
+  CheckboxGroup,
+  Checkbox,
+  Steps,
+  Step,
   Tabs,
   TabPane,
   Alert,
@@ -34,6 +39,11 @@ import {
 } from 'element-ui'
 
 Vue
+  .use(Upload)
+  .use(CheckboxGroup)
+  .use(Checkbox)
+  .use(Steps)
+  .use(Step)
   .use(Tabs)
   .use(TabPane)
   .use(Alert)
