@@ -14,6 +14,9 @@ import Params from '../views/home/goods/params'
 import List from '../views/home/goods/list'
 import Add from '../views/home/goods/add'
 import Orders from '../views/home/orders/index'
+import Reports from '../views/home/reports/index'
+
+
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -70,7 +73,12 @@ const router = new Router({
         {
           path: '/orders',
           component: Orders
+        },
+        {
+          path: '/reports',
+          component: Reports
         }
+        
       ]
     }
     // {
