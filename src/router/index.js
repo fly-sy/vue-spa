@@ -13,6 +13,7 @@ import Categories from '../views/home/goods/categories'
 import Params from '../views/home/goods/params'
 import List from '../views/home/goods/list'
 import Add from '../views/home/goods/add'
+import Orders from '../views/home/orders/index'
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -65,6 +66,10 @@ const router = new Router({
         {
           path: '/goods/add',
           component: Add
+        },
+        {
+          path: '/orders',
+          component: Orders
         }
       ]
     }

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import {
+  Timeline,
+  TimelineItem,
   Upload,
   CheckboxGroup,
   Checkbox,
@@ -39,6 +41,8 @@ import {
 } from 'element-ui'
 
 Vue
+  .use(Timeline)
+  .use(TimelineItem)
   .use(Upload)
   .use(CheckboxGroup)
   .use(Checkbox)
