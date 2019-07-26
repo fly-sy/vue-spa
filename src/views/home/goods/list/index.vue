@@ -112,7 +112,7 @@ export default {
         })
 
         const {
-          data: { data, meta }
+          data: { meta }
         } = await this.$http.delete(`goods/${id}`)
 
         if (meta.status !== 200) {

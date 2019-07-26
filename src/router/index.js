@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// 1. 引入安装好的 vue-router  
+// 1. 引入安装好的 vue-router
 import Router from 'vue-router'
 
 // 3. 引入定义好的 .vue 类型的组件
@@ -15,8 +15,6 @@ import List from '../views/home/goods/list'
 import Add from '../views/home/goods/add'
 import Orders from '../views/home/orders/index'
 import Reports from '../views/home/reports/index'
-
-
 
 // 2. 注册路由中间件
 Vue.use(Router)
@@ -78,7 +76,7 @@ const router = new Router({
           path: '/reports',
           component: Reports
         }
-        
+
       ]
     }
     // {
@@ -102,15 +100,14 @@ router.beforeEach((to, from, next) => {
   /**
    * 1. 登录不拦截
    * 2. 非登录颜值 token 页面拦截
-   *  2.1  有token 放行  next 
-   *  2.2  没有token 强制跳转到 登录  
+   *  2.1  有token 放行  next
+   *  2.2  没有token 强制跳转到 登录
    */
 
-  if (to.path === '/login') return next();
+  if (to.path === '/login') return next()
   const token = sessionStorage.getItem('token')
   if (!token) return next('/login')
-  next();
+  next()
 })
-
 
 export default router

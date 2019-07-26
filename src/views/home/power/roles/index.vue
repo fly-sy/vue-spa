@@ -83,12 +83,7 @@
       width="50%"
       @close="setRightDialogClosed"
     >
-      <!-- 
-        show-checkbox  复选框
-        node-key      唯一标识 string  
-        default-expand-all 默认展开 
-        default-expanded-keys	默认展开的节点的 key 的数组
-      -->
+
       <el-tree
         :data="rights"
         :props="defaultProps"
@@ -181,7 +176,7 @@ export default {
       const keys = [...this.$refs.treeRef.getCheckedKeys(), ...this.$refs.treeRef.getHalfCheckedKeys()]
       const rids = keys.join(',')
       const {
-        data: { data, meta }
+        data: { meta }
       } = await this.$http.post(`roles/${this.roleId}/rights`, { rids })
       if (meta.status !== 200) return this.$message.error(meta.msg)
 

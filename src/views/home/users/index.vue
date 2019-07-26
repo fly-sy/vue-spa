@@ -66,9 +66,9 @@
           </template>
         </el-table-column>
       </el-table>
-      <!-- 
-          分页功能 
-          handleSizeChange      改变总条数 
+      <!--
+          分页功能
+          handleSizeChange      改变总条数
           handleCurrentChange   前往某一页
           current-page          当前页码
       -->
@@ -271,7 +271,7 @@ export default {
     // 修改状态
     async userStateChanged(userinfo) {
       const {
-        data: { data, meta }
+        data: { meta }
       } = await this.$http.put(`users/${userinfo.id}/state/${userinfo.mg_state}`)
       if (meta.status !== 200) {
         // 防止更新失败页面数据和后台数据不同步
@@ -289,7 +289,7 @@ export default {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
         const {
-          data: { data, meta }
+          data: { meta }
         } = await this.$http.post('users', this.addForm)
         if (meta.status !== 201) return this.$message.error(meta.msg)
         // 添加成功提示
@@ -318,7 +318,7 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         const {
-          data: { data, meta }
+          data: { meta }
         } = await this.$http.put('users/' + this.editForm.id, this.editForm)
         if (meta.status !== 200) return this.$message.error(meta.msg)
         // 添加成功提示
@@ -339,7 +339,7 @@ export default {
         })
 
         const {
-          data: { data, meta }
+          data: { meta }
         } = await this.$http.delete('users/' + id)
         if (meta.status !== 200) return this.$message.error(meta.msg)
         // 删除成功提示
@@ -366,7 +366,7 @@ export default {
       }
 
       const {
-        data: { data, meta }
+        data: { meta }
       } = await this.$http.put(`users/${this.userInfo.id}/role`, {
         rid: this.selectedRoleId
       })

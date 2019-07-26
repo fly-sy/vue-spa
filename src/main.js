@@ -7,7 +7,7 @@ import './assets/fonts/iconfont.css'
 // 引入初始样式
 import './assets/css/base.less'
 
-//引入element-ui
+// 引入element-ui
 import './plugins/element.js'
 
 // 引入axios请求
@@ -47,8 +47,7 @@ Vue.component('tree-table', TreeTable)
 Vue.config.productionTip = false
 
 new Vue({
-  el: '#app',
   // 6. 挂载路由
   router,
   render: h => h(App)
-})
+}).$mount('#app')

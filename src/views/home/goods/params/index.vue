@@ -284,7 +284,7 @@ export default {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
         const {
-          data: { data, meta }
+          data: { meta }
         } = await this.$http.post(`categories/${this.cateId}/attributes`, {
           attr_name: this.addForm.attr_name,
           attr_sel: this.activeName
@@ -322,7 +322,7 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         const {
-          data: { data, meta }
+          data: { meta }
         } = await this.$http.put(`categories/${this.cateId}/attributes/${this.editForm.attr_id}`, { attr_name: this.editForm.attr_name, attr_sel: this.activeName })
 
         if (meta.status !== 200) {
@@ -408,7 +408,7 @@ export default {
   },
   computed: {
     isBtnDisabled() {
-      return this.selectedCateKeys.length !== 3 ? true : false
+      return this.selectedCateKeys.length !== 3
     },
     cateId() {
       if (this.selectedCateKeys.length === 3) {

@@ -16,16 +16,16 @@
       </el-row>
 
       <!-- 树状表格渲染 -->
-      <!-- 
-        表格 
-        
+      <!--
+        表格
+
         data 数据源
         columns 设置每一列的属性
         :selection-type="false" 关闭复选框
         :expand-type="false"    关闭缩放效果
-        show-index 设置索引   
+        show-index 设置索引
         index-text="#"  自定义索引列的名称
-        border       边框 
+        border       边框
         :show-row-hover="false"   选中高亮
       -->
       <tree-table
