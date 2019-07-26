@@ -1,20 +1,41 @@
 import Vue from 'vue'
-// 1. 引入安装好的 vue-router
 import Router from 'vue-router'
 
-// 3. 引入定义好的 .vue 类型的组件
-import Login from '../views/login'
-import Home from '../views/home'
-import WelCome from '../views/home/welcome'
-import Users from '../views/home/users/index'
-import Rights from '../views/home/power/rights'
-import Roles from '../views/home/power/roles'
-import Categories from '../views/home/goods/categories'
-import Params from '../views/home/goods/params'
-import List from '../views/home/goods/list'
-import Add from '../views/home/goods/add'
-import Orders from '../views/home/orders/index'
-import Reports from '../views/home/reports/index'
+// import Reports from '../views/home/reports/index'
+const Reports = () => import(/* webpackChunkName: "reports" */ '../views/home/reports')
+
+// import Orders from '../views/home/orders/index'
+const Orders = () => import(/* webpackChunkName: "orders" */ '../views/home/orders')
+
+// import Categories from '../views/home/goods/categories'
+const Categories = () => import(/* webpackChunkName: "categories-params-list-add" */ '../views/home/goods/categories')
+
+// import Params from '../views/home/goods/params'
+const Params = () => import(/* webpackChunkName: "categories-params-list-add" */ '../views/home/goods/params')
+
+// import List from '../views/home/goods/list'
+const List = () => import(/* webpackChunkName: "categories-params-list-add" */ '../views/home/goods/list')
+
+// import Add from '../views/home/goods/add'
+const Add = () => import(/* webpackChunkName: "categories-params-list-add" */ '../views/home/goods/add')
+
+// import Rights from '../views/home/power/rights'
+const Rights = () => import(/* webpackChunkName: "right-roles" */ '../views/home/power/rights')
+
+// import Roles from '../views/home/power/roles'
+const Roles = () => import(/* webpackChunkName: "right-roles" */ '../views/home/power/roles')
+
+// import Users from '../views/home/users/index'
+const Users = () => import(/* webpackChunkName: "users" */ '../views/home/users/index')
+
+// import WelCome from '../views/home/welcome'
+const WelCome = () => import(/* webpackChunkName: "login-home-welcome" */ '../views/home/welcome')
+
+// import Home from '../views/home'
+const Home = () => import(/* webpackChunkName: "login-home-welcome" */ '../views/home')
+
+// import Login from '../views/login'
+const Login = () => import(/* webpackChunkName: "login-home-welcome" */ '../views/login')
 
 // 2. 注册路由中间件
 Vue.use(Router)

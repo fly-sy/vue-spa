@@ -155,10 +155,8 @@ export default {
       }
 
       this.catelist = res.data
-      // console.log(this.catelist)
     },
     handleChange() {
-      // console.log(this.addForm.goods_cat)
       if (this.addForm.goods_cat.length !== 3) {
         this.addForm.goods_cat = []
       }
@@ -170,7 +168,6 @@ export default {
       }
     },
     tabClicked() {
-      // console.log(this.activeIndex)
       // 证明访问的是动态参数面板
       if (this.activeIndex === '1') {
         this.getParamsData('many')
@@ -197,7 +194,6 @@ export default {
       }
     },
     handlePreview(file) {
-      console.log(file)
       // 获取服务器图片的地址
       this.previewPath = file.response.data.url
       // 显示对话框
@@ -239,7 +235,6 @@ export default {
           this.addForm.attrs.push(newInfo)
         })
         form.attrs = this.addForm.attrs
-        console.log(form)
 
         // 发起请求添加商品
         // 商品的名称，必须是唯一的

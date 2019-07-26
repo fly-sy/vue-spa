@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
 import Nprogress from 'nprogress'
-import 'nprogress/nprogress.css'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 

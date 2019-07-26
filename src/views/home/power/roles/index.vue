@@ -139,7 +139,6 @@ export default {
         if (meta.status !== 200) return this.$message.error(meta.msg)
         // 删除成功提示
         this.$message.success('删除成功')
-        console.log(data)
         // // 刷新数据
         // this.getRoles()
         role.children = data

@@ -9,6 +9,7 @@ import './assets/css/base.less'
 
 // 引入element-ui
 import './plugins/element.js'
+import 'nprogress/nprogress.css'
 
 // 引入axios请求
 import './api'

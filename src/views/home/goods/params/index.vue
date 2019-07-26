@@ -265,8 +265,6 @@ export default {
         item.inputValue = ''
       })
 
-      console.log(data)
-
       // 判断并给不同的 选择赋值
       if (this.activeName === 'many') {
         this.manyTableData = data
@@ -391,7 +389,6 @@ export default {
     },
     showInput(row) {
       row.inputVisible = true
-      console.log(this)
       // 让文本框自动获得焦点
       // Vue 官方的 api  $nextTick 主要用于监听DOM的修改
       // $nextTick 方法的作用，就是当页面上元素被重新渲染之后，才会指定回调函数中的代码

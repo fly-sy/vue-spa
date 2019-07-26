@@ -127,7 +127,6 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error(res.meta.msg)
       }
-      console.log(res)
       this.total = res.data.total
       this.orderlist = res.data.goods
     },
@@ -158,7 +157,6 @@ export default {
       this.progressInfo = res.data
 
       this.progressVisible = true
-      console.log(this.progressInfo)
     }
   }
 }

@@ -63,7 +63,6 @@ export default {
     // 4. 准备数据和配置项
     const result = _.merge(res.data, this.options)
     // const result = Object.assign(res.data, this.options)
-    console.log(result)
 
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(result)
