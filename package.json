@@ -14,7 +14,7 @@
     "echarts": "^4.2.1",
     "element-ui": "^2.6.0",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "vue": "^2.6.10",
     "vue-quill-editor": "^3.0.6",
